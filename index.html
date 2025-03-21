@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body class="">
+    <div>
+        
+
+
+        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center">
+            <h2 class="text-3xl font-bold mb-4">Welcome to Sales Management</h2>
+            <p class="text-lg">Manage your sales efficiently and effectively with our intuitive interface.</p>
+            <div class="mt-6">
+            <a href="customers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">Manage Customers</a>
+            <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ml-4">View Transactions</a>
+            <a href="index.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ml-4">Home</a>
+            </div>
+        </div>
+
+        <div>
+            <form class="max-w-lg mt-10 mx-auto">
+                <!-- <h1 class="text-xl font-bold text-center mb-6 text-gray-700">Sales Management</h1> -->
+                <div class="form-group mx-auto">
+                    <label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name:</label>
+                    <input type="text" id="customerName" name="customerName" required
+                        class="mt-1 block w-60 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="contactDetails" class="block text-sm font-medium text-gray-700">Contact Details:</label>
+                    <input type="text" id="contactDetails" name="contactDetails" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="productName" class="block text-sm font-medium text-gray-700">Product Name:</label>
+                    <input type="text" id="productName" name="productName" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="unitPrice" class="block text-sm font-medium text-gray-700">Unit Price:</label>
+                    <input type="number" id="unitPrice" name="unitPrice" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="totalAmount" class="block text-sm font-medium text-gray-700">Total Amount:</label>
+                    <input type="number" id="totalAmount" name="totalAmount" readonly
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="amountDue" class="block text-sm font-medium text-gray-700">Amount Due:</label>
+                    <input type="number" id="amountDue" name="amountDue" readonly
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="amountPaid" class="block text-sm font-medium text-gray-700">Amount Paid:</label>
+                    <input type="number" id="amountPaid" name="amountPaid" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="balance" class="block text-sm font-medium text-gray-700">Balance:</label>
+                    <input type="number" id="balance" name="balance" readonly
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="form-group">
+                    <label for="paymentStatus" class="block text-sm font-medium text-gray-700">Payment Status:</label>
+                    <input type="text" id="paymentStatus" name="paymentStatus" readonly
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="actions space-x-4 flex direction-row">
+                    <button type="button" id="submitBtn"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save
+                        Transaction</button>
+                    <button type="button" id="updatePaymentBtn"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update
+                        Payment</button>
+                    <button type="button" id="clearBalanceBtn"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Clear
+                        Balance</button>
+                    <button type="button" id="viewCustomerHistoryBtn"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">View
+                        Customer History</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script type="module" src="script.js"></script>
+    <!-- <script type="module" src="customers.js"></script> -->
+
+</body>
+
+</html>

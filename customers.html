@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body class="flex items-center bg-gray-100">
+    <div class="container mx-auto p-4">
+        <div
+            class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center mb-8">
+            <!-- <h1 class="text-lg font-bold">Sales Management</h1> -->
+            <nav class="space-x-6">
+                <a href="viewCustomers.html"
+                    class="bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">View
+                    Customers</a>
+                <a href="transaction.html"
+                    class="bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">View
+                    Transactions</a>
+                <a href="home.html"
+                    class="bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">Home</a>
+            </nav>
+        </div>
+        
+
+        <main class="flex-grow container mx-auto ">
+            <div class="bg-white p-8 rounded-lg shadow-lg mt-1">
+                <h2 class="text-2xl font-bold mb-6 text-center">Add Transaction</h2>
+                <form>
+                    <div class="form-group mb-4">
+                        <label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name:</label>
+                        <select id="customerName" name="customerName" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <!-- Customer options will be dynamically inserted here -->
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="contactDetails" class="block text-sm font-medium text-gray-700">Contact
+                            Details:</label>
+                        <input type="text" id="contactDetails" name="contactDetails" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="productName" class="block text-sm font-medium text-gray-700">Product Name:</label>
+                        <input type="text" id="productName" name="productName" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="unitPrice" class="block text-sm font-medium text-gray-700">Unit Price:</label>
+                        <input type="number" id="unitPrice" name="unitPrice" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="totalAmount" class="block text-sm font-medium text-gray-700">Total Amount:</label>
+                        <input type="number" id="totalAmount" name="totalAmount" readonly
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="amountDue" class="block text-sm font-medium text-gray-700">Amount Due:</label>
+                        <input type="number" id="amountDue" name="amountDue" readonly
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="amountPaid" class="block text-sm font-medium text-gray-700">Amount Paid:</label>
+                        <input type="number" id="amountPaid" name="amountPaid" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="balance" class="block text-sm font-medium text-gray-700">Balance:</label>
+                        <input type="number" id="balance" name="balance" readonly
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="paymentStatus" class="block text-sm font-medium text-gray-700">Payment
+                            Status:</label>
+                        <input type="text" id="paymentStatus" name="paymentStatus" readonly
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="actions space-x-4 flex justify-center">
+                        <button type="button" id="submitBtn"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save
+                            Transaction</button>
+                        <button type="button" id="updatePaymentBtn"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update
+                            Payment</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <script type="module" src="script.js"></script>
+</body>
+
+</html>
