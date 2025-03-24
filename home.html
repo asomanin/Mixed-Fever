@@ -10,24 +10,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
-<body class="flex items-center bg-gray-100">
-    <div class="container mx-auto p-4">
-        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center mb-8">
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center">
             <h2 class="text-3xl font-bold mb-4">Welcome to Sales Management</h2>
             <p class="text-lg">Manage your sales efficiently and effectively with our intuitive interface.</p>
-            <div class="mt-6">
-            <a href="home.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ">Home</a>
-            <a href="viewCustomers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ml-4">Customers</a>
-            <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ml-4">View Transactions</a>
-            <a href="Customers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 ml-4">➕ Transaction</a>
+            <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="viewCustomers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">Customers</a>
+                <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">View Transactions</a>
+                <a href="Customers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">➕ Transaction</a>
             </div>
         </div>
 
         <div>
-            <form class="max-w-lg mt-10 mx-auto">
-                <!-- <h1 class="text-xl font-bold text-center mb-6 text-gray-700">Sales Management</h1> -->
-                
-                <div class="actions space-x-4 flex direction-row">
+            <form class="max-w-lg mt-10 mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <div class="actions space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
                     <a href="addCustomer.html"><button type="button" id="submitBtn"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                         Customer</button></a>
@@ -44,7 +41,6 @@
             </form>
         </div>
     </div>
-    <!-- <script src="script.js"></script> -->
     <script type="module" src="script.js"></script>
 
 </body>

@@ -14,10 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
     var paymentStatus = document.getElementById('paymentStatus');
     var submitBtn = document.getElementById("submitBtn");
 
+    if (!submitBtn) {
+        console.error("Submit button not found!");
+        return;
+    }
+
     async function fetchCustomers() {
         const { data: customers, error } = await supabase
             .from('customers')
-            .select('*');
+            .select('*')
+            .order('id', { ascending: false }); // Fetch customers in descending order
 
         if (error) {
             console.error('Error fetching customers:', error.message);

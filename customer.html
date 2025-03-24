@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Management</title>
+    <title>Customer Management</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -13,12 +13,11 @@
 <body class="bg-gray-100">
     <div class="container mx-auto px-4">
         <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center">
-            <h2 class="text-3xl font-bold mb-4">Welcome to Sales Management</h2>
-            <p class="text-lg">Manage your sales efficiently and effectively with our intuitive interface.</p>
+            <h2 class="text-3xl font-bold mb-4">Customer Management</h2>
+            <p class="text-lg">Manage your customers efficiently and effectively with our intuitive interface.</p>
             <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="customers.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">Manage Customers</a>
-                <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">View Transactions</a>
-                <a href="index.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">Home</a>
+                <a href="index.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">Home</a>
+                <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">View Transactions</a>
             </div>
         </div>
 
@@ -77,16 +76,13 @@
                 <div class="actions space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
                     <button type="button" id="submitBtn"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save
-                        Transaction</button>
-                    <button type="button" id="updatePaymentBtn"
+                        Customer</button>
+                    <button type="button" id="updateCustomerBtn"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update
-                        Payment</button>
-                    <button type="button" id="clearBalanceBtn"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Clear
-                        Balance</button>
-                    <button type="button" id="viewCustomerHistoryBtn"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">View
-                        Customer History</button>
+                        Customer</button>
+                    <button type="button" id="deleteCustomerBtn"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Delete
+                        Customer</button>
                 </div>
             </form>
         </div>

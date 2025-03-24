@@ -30,11 +30,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         alert("Customer added successfully!");
+
+        // Clear necessary text boxes
+        document.getElementById('customerName').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('town').value = '';
+        
+
         fetchTransactions(); // Refresh the list after adding
     });
 
     async function fetchTransactions() {
-        const { data: customers, error: customersError } = await supabase.from('customers').select('*');
+        const { data: customers, error: customersError } = await supabase
+            .from('customers')
+            .select('*')
+            .order('id', { ascending: false }); // Fetch customers in descending order
 
         if (customersError) {
             console.error('Error fetching customers:', customersError.message);
