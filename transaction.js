@@ -29,8 +29,33 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <td class="px-6 py-4 whitespace-nowrap">${transaction.amount_paid}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${transaction.balance}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${transaction.payment_status}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <button class="delete-btn px-4 py-2 bg-red-500 text-white rounded" data-id="${transaction.id}">Delete</button>
+                </td>
             `;
             transactionsTable.appendChild(row);
+        });
+
+        // Add event listeners to delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const transactionId = event.target.getAttribute('data-id');
+                const { error } = await supabase
+                    .from('transactions')
+                    .delete()
+                    .eq('id', transactionId);
+
+                if (error) {
+                    console.error('Error deleting transaction:', error.message);
+                    return;
+                }
+
+                // Show success message
+                alert('Transaction deleted successfully.');
+
+                // Refresh the transactions table after deletion
+                fetchTransactions();
+            });
         });
     }
 
