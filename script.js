@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const { data: customers, error } = await supabase
             .from('customers')
             .select('*')
-            .order('id', { ascending: false }); // Fetch customers in descending order
+            .order('id', { ascending: true }); // Fetch customers in descending order
 
         if (error) {
             console.error('Error fetching customers:', error.message);
@@ -64,6 +64,155 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     fetchCustomers();
+
+
+    async function fetchProducts() {
+        const { data: products, error } = await supabase
+            .from('products')
+            .select('*')
+            .order('id', { ascending: false }); // Fetch products in descending order
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+
+        
+        products.forEach(product => {
+            const option = document.createElement('option');
+            option.value = product.id; // Use product ID as the value
+            option.textContent = product.product_name; // Display product name
+            productName.appendChild(option);
+        });
+
+        // Update product quantity after transaction
+        async function updateProductQuantity(productId, quantitySold) {
+            const { data: product, error: fetchError } = await supabase
+            .from('products')
+            .select('quantity')
+            .eq('id', productId)
+            .single();
+            if (!product) {
+                console.error('Product not found!');
+                return;
+            }
+
+            const { error: decrementError } = await supabase
+                .rpc('decrement_product_quantity', {
+                    product_id: productId,
+                    quantity_sold: quantitySold
+                });
+
+            if (decrementError) {
+                console.error('Error updating product quantity:', decrementError.message);
+            } else {
+                console.log('Product quantity updated successfully');
+            }
+            if (fetchError) {
+            console.error('Error fetching product quantity:', fetchError.message);
+            return;
+            }
+
+            const newQuantity = product.quantity - quantitySold;
+
+            const { error: updateError } = await supabase
+            .from('products')
+            .update({ quantity: newQuantity })
+            .eq('id', productId);
+
+            if (updateError) {
+            console.error('Error updating product quantity:', updateError.message);
+            } else {
+            console.log('Product quantity updated successfully');
+            }
+        }
+
+        // Modify saveTransaction to update product quantity
+        async function saveTransaction() {
+            const selectedCustomerId = customerName.value;
+            const selectedProductId = productName.value;
+            const quantitySold = parseInt(quantity.value);
+
+            const { data: customer, error: customerError } = await supabase
+            .from('customers')
+            .select('name, phone')
+            .eq('id', selectedCustomerId)
+            .single();
+
+            if (customerError) {
+            console.error('Error fetching customer details:', customerError.message);
+            alert("Failed to fetch customer details!");
+            return;
+            }
+
+            const transactionData = {
+            customer_name: customer.name,
+            contact_details: customer.phone,
+            product_name: productName.value,
+            quantity: quantitySold,
+            unit_price: parseFloat(unitPrice.value),
+            total_amount: parseFloat(totalAmount.value),
+            amount_due: parseFloat(amountDue.value),
+            amount_paid: parseFloat(amountPaid.value),
+            balance: parseFloat(balance.value),
+            payment_status: paymentStatus.value,
+            created_at: new Date().toISOString() // Add the current date and time
+            };
+
+            const { data, error } = await supabase.from("transactions").insert([transactionData]);
+
+            if (error) {
+            console.error("Error inserting transaction:", error.message);
+            alert("Failed to save transaction!");
+            return;
+            }
+
+            console.log("Transaction saved:", data);
+            alert("Transaction saved successfully!");
+
+            // Update product quantity
+            await updateProductQuantity(selectedProductId, quantitySold);
+
+            // Clear necessary text boxes
+            productName.value = '';
+            quantity.value = '';
+            unitPrice.value = '';
+            totalAmount.value = '';
+            amountDue.value = '';
+            amountPaid.value = '';
+            balance.value = '';
+            paymentStatus.value = '';
+        }
+        // Clear existing options in the productName dropdown
+        productName.innerHTML = '';
+
+        products.forEach(product => {
+            const option = document.createElement('option');
+            option.value = product.id; // Use product ID as the value
+            option.textContent = product.product_name; // Display product name
+            productName.appendChild(option);
+        });
+    }
+
+    productName.addEventListener('change', async function () {
+        const selectedProductId = productName.value;
+        const { data: product, error } = await supabase
+            .from('products')
+            .select('selling_price')
+            .eq('id', selectedProductId)
+            .single();
+            
+
+        if (error) {
+            console.error('Error fetching product details:', error.message);
+            return;
+        }
+
+        unitPrice.value = product.selling_price;
+    });
+
+    fetchProducts();
+
 
     function calculateTotal() {
         var total = parseFloat(quantity.value) * parseFloat(unitPrice.value);
@@ -103,7 +252,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to save transaction
     async function saveTransaction() {
         const selectedCustomerId = customerName.value;
+        const selectedProductId = productName.value;
+        const quantitySold = parseInt(quantity.value);
 
+        // Fetch customer details
         const { data: customer, error: customerError } = await supabase
             .from('customers')
             .select('name, phone')
@@ -116,11 +268,30 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Fetch product details to get the current quantity
+        const { data: product, error: productError } = await supabase
+            .from('products')
+            .select('quantity')
+            .eq('id', selectedProductId)
+            .single();
+
+        if (productError) {
+            console.error('Error fetching product details:', productError.message);
+            alert("Failed to fetch product details!");
+            return;
+        }
+
+        if (product.quantity < quantitySold) {
+            alert("Insufficient stock! Please reduce the quantity.");
+            return;
+        }
+
+        // Prepare transaction data
         const transactionData = {
             customer_name: customer.name,
             contact_details: customer.phone,
-            product_name: productName.value,
-            quantity: parseInt(quantity.value),
+            product_name: productName.options[productName.selectedIndex].text, // Get the product name from the dropdown
+            quantity: quantitySold,
             unit_price: parseFloat(unitPrice.value),
             total_amount: parseFloat(totalAmount.value),
             amount_due: parseFloat(amountDue.value),
@@ -130,15 +301,33 @@ document.addEventListener("DOMContentLoaded", function () {
             created_at: new Date().toISOString() // Add the current date and time
         };
 
-        const { data, error } = await supabase.from("transactions").insert([transactionData]);
+        // Insert transaction into the database
+        const { data: transaction, error: transactionError } = await supabase
+            .from("transactions")
+            .insert([transactionData]);
 
-        if (error) {
-            console.error("Error inserting transaction:", error.message);
+        if (transactionError) {
+            console.error("Error inserting transaction:", transactionError.message);
             alert("Failed to save transaction!");
             return;
         }
 
-        console.log("Transaction saved:", data);
+        // Deduct the sold quantity from the product's total quantity
+        const newQuantity = product.quantity - quantitySold;
+
+        // Update the product's quantity in the database
+        const { error: updateError } = await supabase
+            .from('products')
+            .update({ quantity: newQuantity })
+            .eq('id', selectedProductId);
+
+        if (updateError) {
+            console.error('Error updating product quantity:', updateError.message);
+            alert("Failed to update product quantity!");
+            return;
+        }
+
+        console.log("Transaction saved:", transaction);
         alert("Transaction saved successfully!");
 
         // Clear necessary text boxes
@@ -151,6 +340,8 @@ document.addEventListener("DOMContentLoaded", function () {
         balance.value = '';
         paymentStatus.value = '';
     }
+
+    
 
     // Attach click event to button
     submitBtn.addEventListener("click", saveTransaction);

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-8 px-4 rounded-lg shadow-lg text-center">
+            <h2 class="text-3xl font-bold mb-4">Add Product</h2>
+            <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="home.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">Home</a>
+                <a href="transaction.html" class="inline-block bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">View Transactions</a>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 mt-6 rounded-lg shadow-lg max-w-md mx-auto">
+            <form id="productForm">
+                <div class="mb-4">
+                    <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+                    <input type="text" id="productName" name="productName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter product name" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter quantity" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="costPrice" class="block text-sm font-medium text-gray-700">Cost Price</label>
+                    <input type="number" id="costPrice" name="costPrice" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter cost price" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="sellingPrice" class="block text-sm font-medium text-gray-700">Selling Price</label>
+                    <input type="number" id="sellingPrice" name="costPrice" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter cost price" required>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" id="submitProduct" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="addProduct.js"></script>
+    <!-- <script type="module" src="script.js"></script>  -->
+</body>
+
+</html>

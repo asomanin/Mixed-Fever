@@ -30,8 +30,9 @@
                 <form>
                     <div class="form-group mb-4">
                         <label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name:</label>
-                        <select id="customerName" name="customerName" required
+                        <select id="customerName" name="customerName" required 
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="" disabled selected>Select Name</option>
                             <!-- Customer options will be dynamically inserted here -->
                         </select>
                     </div>
@@ -43,8 +44,11 @@
                     </div>
                     <div class="form-group mb-4">
                         <label for="productName" class="block text-sm font-medium text-gray-700">Product Name:</label>
-                        <input type="text" id="productName" name="productName" required
+                        <select id="productName" name="productName" required 
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="" disabled selected>Please select product</option>
+                            <!-- Product options will be dynamically inserted here -->
+                        </select>
                     </div>
                     <div class="form-group mb-4">
                         <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity:</label>
